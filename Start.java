@@ -8,15 +8,11 @@ public class Start {
 
 
 		// Aanmaken View
+		// De view maakt de model aan, kijk in view
 		ViewValFormule view = new ViewValFormule();
 		
-		// Aanmaken Controller
-		
-
-		
-		
+		// dit kan ik niet uileggen, maar het werkt zo, de applicatie start
 		Application.launch(view.getClass());
-		System.out.println("jeh");
 	}
 
 }
