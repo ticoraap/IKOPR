@@ -64,6 +64,22 @@ public class ModelValFormule {
 		this.schermhoogte = YAsVensterhoogte;
 	}
 	
+	public void bounce(){
+		this.valSnelheid = valSnelheid - (valSnelheid * 2);
+	}
+	
+	public double geTijdsEenheid(){
+		return this.tijdsEenheidSeconden;
+	}
+	
+	public double getMaximaleAfstand(){
+		return this.maximaleAfstand;
+	}
+	
+	public int getSchermHoogte(){
+		return this.schermhoogte;
+	}
+	
 	// Geeft de positie op de Y as voor het vallend object, dit relatief aan de hoogte van het venster
 	// waarbij de schermhoogte wel opgegeven moet zijn
 	public int getNextSchermPositie(){
