@@ -2,16 +2,16 @@ package ikopr_valapplicatie;
 
 public class ModelValFormule {
 	
+	// Variablen voor model
 	private double maximaleAfstand;
 	private double gevallenAfstand = 0;
 	private double tijdsEenheidSeconden;
 	private double constanteValSnelheid;
 	private double valSnelheid = 0;
-	
 	private int schermhoogte;
 	private boolean animatieklaar = false;
 
-	// constructor zonder waarden
+	// constructor default met 100 meter om de 0.1 sec update, en een valsnelheid van 9.81m/s
 	public ModelValFormule(){
 		this(100.0, 0.1, 9.81);
 	}
@@ -34,53 +34,8 @@ public class ModelValFormule {
 		this.constanteValSnelheid = constanteValSnelheid;
 	}
 	
-	public void startAutoFormule() throws InterruptedException{
-		while(gevallenAfstand <= maximaleAfstand){
-		
-			// Het updaten van de nieuwe waarden, de valsnelheid verhogen, en de afstand verhogen
-			gevallenAfstand = nieuweAfstand(gevallenAfstand, valSnelheid, tijdsEenheidSeconden);
-			valSnelheid = nieuweSnelheid(valSnelheid,constanteValSnelheid,tijdsEenheidSeconden);
-		
-			// Bericht van de afstand en snelheid
-			System.out.println("De gevallen afstand is: " + gevallenAfstand);
-			System.out.println("De valsnelheid is: " + valSnelheid);
-			// Laat de applicatie slapen voor de ingestelde tijd
-			Thread.sleep((long) (tijdsEenheidSeconden * 1000));
-		}
-	}
-	
-	
-	
-	public double getGevallenAfstand(){
-		return this.gevallenAfstand;
-	}
-	
-	public double getValSnelheid(){
-		return this.valSnelheid;
-	}
-	
-	// Zet de hoogte van het venster zodat de juiste positie van de bal teruggegeven kan worden
-	public void setSchermHoogte(int YAsVensterhoogte){
-		this.schermhoogte = YAsVensterhoogte;
-	}
-	
-	public void bounce(){
-		this.valSnelheid = valSnelheid - (valSnelheid * 2);
-	}
-	
-	public double geTijdsEenheid(){
-		return this.tijdsEenheidSeconden;
-	}
-	
-	public double getMaximaleAfstand(){
-		return this.maximaleAfstand;
-	}
-	
-	public int getSchermHoogte(){
-		return this.schermhoogte;
-	}
-	
-	// Geeft de positie op de Y as voor het vallend object, dit relatief aan de hoogte van het venster
+	// Geeft de positie op de Y as voor het vallend object, 
+	// dit relatief aan de hoogte van het venster
 	// waarbij de schermhoogte wel opgegeven moet zijn
 	public int getNextSchermPositie(){
 		
@@ -99,10 +54,10 @@ public class ModelValFormule {
 		return relatiefAanSchermhoogte;
 	}
 	
-	public boolean animatieVoltooid(){
-		return this.animatieklaar;
+	// Zet de valsnelheid in de min, Voorbeeld: 100 is dan -100, 55 is dan -55
+	public void bounce(){
+		this.valSnelheid = valSnelheid - (valSnelheid * 2);
 	}
-	
 	
 	// -- De methodes hierna zijn voor het berekenen van de valformule
 	// De nieuwe afstand is de afstand + de snelheid met tijd vermenigvuldigd
@@ -122,4 +77,34 @@ public class ModelValFormule {
 		valSnelheid = nieuweSnelheid(valSnelheid,constanteValSnelheid,tijdsEenheidSeconden);
 	}
 	
+
+	// -- De setters
+	public void setSchermHoogte(int YAsVensterhoogte){
+		this.schermhoogte = YAsVensterhoogte;
+	}
+	
+	// -- De getters
+	public double getGevallenAfstand(){
+		return this.gevallenAfstand;
+	}
+	
+	public double getValSnelheid(){
+		return this.valSnelheid;
+	}
+	
+	public boolean animatieVoltooid(){
+		return this.animatieklaar;
+	}
+	
+	public double getTijdsEenheid(){
+		return this.tijdsEenheidSeconden;
+	}
+	
+	public double getMaximaleAfstand(){
+		return this.maximaleAfstand;
+	}
+	
+	public int getSchermHoogte(){
+		return this.schermhoogte;
+	}
 }
